@@ -6,7 +6,7 @@ Here are a couple random scripts created for different projects. Some are relate
 
 ### Roulette Scripts
 
-These scripts were made as part of a class project. They can be found [here].
+These scripts were made as part of a class project. They can be found [here](https://github.com/I14T-E/scripts/tree/master/Roulette%20Scripts "Roulette Scripts").
 
 #### roulette_delaer_finder_by_time.sh
 - This script was created to analyze an employee schedule to find a roulette dealer at a specific time.
