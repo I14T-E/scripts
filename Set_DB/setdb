@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Set to true so program runs at least once
+run=true
+dbset=false
+file=""
+
+function well_format()
+{
+	filename=$file
+	regex='^\{\"first\":[A-Za-z]+\ \"last\":[A-Za-z]+\}$'
+	count=0
+
+	while read line; do
+	        #check to see if there are any well formatted lines
+	        if [[ $line =~ $regex ]] ; then
+	                (( count++ ))
+	        fi
+	done < $filename
+
+	if [[ count -ge 1 ]] ; then
+	        printf "Well formatted lines:\n"
+
+	        #print each line
+	        while read line; do
+	                if [[ $line =~ $regex ]] ; then
+	                        printf "$line\n"
+	                fi
+	        done < $filename
+	else
+	        printf "No well formatted lines\n"
+	fi
+}
+
+function check_file()
+{
+	if [[ -f $inpt2 ]] ; then
+		if [[ -r $inpt2 ]] ; then
+			dbset=true
+			printf "Database set to $inpt2\n"
+		else
+			printf "File $inpt2 is not readable\n"
+		fi
+	else
+		printf "File $inpt2 does not exist\n"
+	fi
+}
+
+while [ "$run" == "true" ] ; do
+
+	read -p "$USER: " inpt1 inpt2 inpt3
+
+	#get user input
+	if [[ $inpt1 == "quit" ]] ; then
+		run=false
+
+	elif [[ $inpt1 == "setdb" ]]  && [[ -z  $inpt2 ]] ; then
+		printf "Missing argument\n"
+
+	elif [[ $inpt1 == "setdb" ]]  && [[ -n  $inpt2 ]] && [[ -z $inpt3 ]] ; then
+		check_file $inpt2 
+		file=$inpt2
+
+	elif [[ $inpt1 == "setdb" ]]  && [[ -n  $inpt2 ]] && [[ -n $inpt3 ]] ; then
+		check_file $inpt2
+		file=$inpt2
+		printf "Extra arguments ignored\n"
+
+	elif [[ $inpt1 == "printdb" ]] && [[ -z $file ]] ; then
+		printf "Database has not been set\n"
+
+	elif [[ $inpt1 == "printdb" ]] && [[ -n $file ]] ; then
+
+		well_format $file
+	else
+		printf "Unrecognized command\n"
+	fi
+done
