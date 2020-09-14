@@ -21,3 +21,32 @@ These scripts were made as part of a class project. They can be found [here](htt
    - The date (four digits)
    - The time (including "AM" or "PM")
    - The casino game being played
+
+
+
+### Set_DB
+This was a simple script made to test different shell features. This program starts with a prompt and accepts three different commands (setdb, printdb, quit). Warning: It's obviously filled with bugs and has no practical use...
+
+To use:
+- Set the "database" by using the setdb command and passing it a text file
+   - The program will check to see if file exists and is readable (will also ignore extra arguments)
+   - Can handle full path file
+- Use the printdb command to check the previously "set" text file for well formatted lines
+   - Well formatted lines are determined by the regex within the script itself
+
+
+Example:
+```bash
+$USER: test
+Unrecognized command
+$USER: setdb
+Missing argument
+$USER: setdb a_file
+Database set to a_file
+$USER: printdb
+Well formatted lines:
+...
+...
+...
+$USER: quit
+```
